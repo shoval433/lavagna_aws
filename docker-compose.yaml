@@ -1,0 +1,59 @@
+version: '3'
+services:
+  alb:
+    image: nginx:alpine-slim
+    ports:
+        - "80:80"
+    volumes:
+      - ${PWD}/nginx1/nginx1.conf:/etc/nginx/conf.d/default.conf
+      - ${PWD}/webapp:/usr/share/nginx/html/static
+    networks:
+      - for_app
+    depends_on:
+      - app
+    
+  
+  
+  app:
+    image: public.ecr.aws/c7o8u9c1/shoval_ecr:${var}
+    # ports:
+    #   - "8080:8080"
+    networks:
+      - for_app
+      # - for_sql
+    # depends_on:
+      # my_db:
+      #   condition: service_healthy 
+
+  # my_db:
+  #   image: mysql:5.7
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: lavagna
+  #     MYSQL_CHARACTER_SET: utf8
+  #     MYSQL_COLLATION: utf8_bin
+  #   # ports:
+  #   #   - "3306:3306"
+  #   volumes:
+  #     - my_data:/var/lib/mysql
+  #   networks:
+  #     - for_sql
+  #   healthcheck: # check the healthiness with the following configuration
+  #     test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '--user=root', '--password=root']
+  #     interval: 10s
+  #     timeout: 10s
+  #     retries: 15 
+
+networks:
+  for_app:
+  for_sql:
+
+# networks:
+#   default:
+#     name: mynet
+#     external: true
+
+volumes:
+  my_data:
+  
+  

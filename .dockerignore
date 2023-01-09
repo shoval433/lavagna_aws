@@ -1,0 +1,8 @@
+.gitignore
+.git
+Dockerfile
+README.md
+lavana
+README_EXECUTABLE_WAR.txt
+demo.Dockerfile
+
